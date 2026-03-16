@@ -16,11 +16,13 @@ load_dotenv()
 from langchain_core.messages import HumanMessage
 from langchain_openai import ChatOpenAI
 
-def describe_image(img_path):
-    # This function assumes img_path is a local file path
-    # For OpenAI Vision, you need a public URL. You can use a placeholder or upload to a service if needed.
-    # Here, we just show the code structure.
-    img_url = f"file://{os.path.abspath(img_path)}"  # Replace with actual public URL if needed
+def describe_image(frame_filename):
+    # Use the public GitHub raw URL for the frame image
+    github_user = "joejjm"
+    github_repo = "Final-project"
+    github_branch = "main"
+    github_path = f"data/frames/{frame_filename}"
+    img_url = f"https://raw.githubusercontent.com/{github_user}/{github_repo}/{github_branch}/{github_path}"
     llm = ChatOpenAI(model="gpt-4o")
     message = HumanMessage(
         content=[
@@ -29,7 +31,7 @@ def describe_image(img_path):
         ]
     )
     msg = llm.invoke([message])
-    print(f"Description for {img_path}:")
+    print(f"Description for {img_url}:")
     print(msg.content)
 
 if __name__ == "__main__":
@@ -49,5 +51,4 @@ if __name__ == "__main__":
         sorted_changes = sorted(changes, key=lambda x: x[1], reverse=True)
         top_frames = [sorted_changes[0][0], sorted_changes[1][0]]
         for frame in top_frames:
-            frame_path = os.path.join(frames_dir, frame)
-            describe_image(frame_path)
+            describe_image(frame)
