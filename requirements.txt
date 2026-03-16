@@ -1,0 +1,5 @@
+opencv-python
+scikit-image
+numpy
+tensorflow
+# or use torch instead of tensorflow if preferred
