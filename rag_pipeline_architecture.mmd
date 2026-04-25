@@ -1,0 +1,32 @@
+%% RAG Pipeline for Baseball Video Analysis
+%%
+%% User Query --> Retriever (Vector DB: Features, Annotations, YOLO Outputs)
+%% Retriever --> Top-K Relevant Data (Frames, Features, CSV Rows)
+%% Top-K Relevant Data --> Generator (LLM: GPT-4, etc.)
+%% Generator --> Generated Answer / Explanation
+%% Generated Answer / Explanation --> User Interface (CLI, Web, Notebook)
+%%
+%% Data Sources:
+%%   - Mechanical Features CSVs
+%%   - Ball Features CSVs
+%%   - YOLO Detected Objects
+%%   - Annotated Frames
+%%
+%% Data Sources --> Retriever
+
+graph TD
+    A[User Query] --> B[Retriever - Vector DB: Features / Annotations / YOLO Outputs]
+    B --> C[Top-K Relevant Data - Frames / Features / CSV Rows]
+    C --> D[Generator - LLM: GPT-4 etc.]
+    D --> E[Generated Answer / Explanation]
+    E --> F[User Interface - CLI / Web / Notebook]
+    subgraph Data Sources
+        G1[Mechanical Features CSVs]
+        G2[Ball Features CSVs]
+        G3[YOLO Detected Objects]
+        G4[Annotated Frames]
+    end
+    G1 --> B
+    G2 --> B
+    G3 --> B
+    G4 --> B
